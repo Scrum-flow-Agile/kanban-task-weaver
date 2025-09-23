@@ -1,0 +1,59 @@
+.teamsList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.teamItem {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.teamName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.memberCount {
+  background: #3b82f6;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.memberList {
+  list-style: disc inside;
+  padding-left: 1rem;
+  color: #374151;
+}
+
+.memberItem {
+  margin-bottom: 0.5rem;
+}
+
+.inputField {
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.95rem;
+  margin-right: 6px;
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.separator {
+  margin: 0 4px;
+  color: #6b7280;
+}
