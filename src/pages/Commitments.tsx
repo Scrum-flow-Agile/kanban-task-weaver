@@ -110,8 +110,10 @@ const Commitments = () => {
   };
 
   const handleDeleteCommitment = (id: number) => {
-    setCommitments(commitments.filter(commitment => commitment.id !== id));
-    toast({ title: "Commitment Deleted", description: "Commitment has been deleted successfully" });
+    setCommitments(commitments.map(commitment =>
+       commitment.id === id ? { ...commitment, status: 'archived' } : commitment
+  ));
+    toast({ title: "Commitment Archieved", description: "Commitment has been moved to archived" });
   };
 
   const handleSaveEdit = () => {
@@ -277,6 +279,22 @@ const Commitments = () => {
                         <SelectItem value="completed">Completed</SelectItem>
                       </SelectContent>
                     </Select>
+
+                    {commitment.status === 'archived' && (
+  <Button
+    size="sm"
+    variant="outline"
+    onClick={() => {
+      setCommitments(commitments.map(c =>  
+        c.id === commitment.id ? { ...c, status: 'pending' } : c
+      ));
+      toast({ title: "Commitment Restored", description: "Commitment has been restored successfully" });
+    }}
+  >
+    Restore
+  </Button>
+)}
+
                     <Button size="sm" variant="ghost" onClick={() => setEditing(commitment)}><Edit className="w-4 h-4" /></Button>
                     <Button size="sm" variant="ghost" onClick={() => handleDeleteCommitment(commitment.id)}><Trash className="w-4 h-4" /></Button>
                   </div>

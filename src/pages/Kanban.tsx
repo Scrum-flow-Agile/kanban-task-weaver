@@ -172,7 +172,7 @@ const Kanban = () => {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Kanban Board</h1>
-          <p className="text-gray-600">Workspace: {selectedWorkspace.name}</p>
+          <p className="text-gray-400">Workspace: {selectedWorkspace.name}</p>
         </div>
         <div className="flex gap-2">
           {canEditTasks && (
@@ -188,11 +188,11 @@ const Kanban = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+      <div className="flex items-center gap-6 mb-8 overflow-x-auto justify-between">
         {columns.map((column) => (
           <div
             key={column.id}
-            className="space-y-4"
+            className="space-y-4 shrink-0 w-72"
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, column.id)}
           >

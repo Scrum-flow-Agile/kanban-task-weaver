@@ -87,8 +87,8 @@ const ManageTaskModal: React.FC<ManageTaskModalProps> = ({
   ];
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px]">
+    <Dialog open={isOpen} onOpenChange={onClose} >
+      <DialogContent className="sm:max-w-[600px] h-auto">
         <DialogHeader>
           <DialogTitle>Manage Task Statuses</DialogTitle>
         </DialogHeader>
@@ -111,7 +111,7 @@ const ManageTaskModal: React.FC<ManageTaskModalProps> = ({
 
           <div>
             <Label>Current Statuses</Label>
-            <div className="space-y-3 mt-2">
+            <div className="space-y-3 mt-2 max-h-[4/00px] overflow-y-scroll">
               {localColumns.map((column) => (
                 <div key={column.id} className="flex items-center gap-3 p-3 border rounded-lg">
                   <div className={`w-4 h-4 rounded ${column.color}`}></div>

@@ -13,7 +13,7 @@ export default function AuthForm() {
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [formData, setFormData] = useState<FormData>({
     name: '',
-    email: '',
+    email: '',  
     password: '',
     confirmPassword: ''
   });
@@ -41,6 +41,7 @@ export default function AuthForm() {
     e.preventDefault();
     clearError(); // Reset previous errors
 
+
     try {
       // Frontend validation
       if (!isLogin) {
@@ -55,15 +56,18 @@ export default function AuthForm() {
       }
 
       if (isLogin) {
-        await login(formData.email, formData.password);
+       await login(formData.email, formData.password);
         navigate('/dashboard');
       } else {
         await register(formData.name, formData.email, formData.password);
-        alert('Registration successful! Please check your email.');
+        alert('Registration successful! Please check your email.'); // refactor to use a toast popup
         setIsLogin(true); // Switch to login after registration
       }
     } catch (err) {
       // Error is already set in the store by login()/register()
+      console.log(err);
+      //handle errors : toast messages
+      
     }
   };
 

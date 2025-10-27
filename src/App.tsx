@@ -20,6 +20,7 @@ import Teamlist from "./components/Teamlist";
 import TeamsPage from "./pages/team/Index";
 import CommitmentsDashboard from './pages/CommitmentsDashboard';
 import CommitmentsHistory from './pages/CommitmentsHistory';
+import Users from "./Users";
 
 
 
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/verify" element={<VerifyPage />} />
           <Route path="/resend-verification" element={<ResendVerificationPage />} />
+          <Route path="/users-test" element= {<Users />} />
           
           {/* Redirect root to auth page */}
           <Route path="/" element={<Navigate to="/auth" replace />} />

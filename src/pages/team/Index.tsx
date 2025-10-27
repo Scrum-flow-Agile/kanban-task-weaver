@@ -46,7 +46,21 @@ export default function TeamsPage() {
   const [openTeam, setOpenTeam] = useState<string | null>(null);
   const [editing, setEditing] = useState<{ team: string; index: number } | null>(null);
   // Removed duplicate declaration of editValues and setEditValues
-  const [teamsState, setTeams] = useState<Team[]>(teams);
+  const [teamsState, setTeamsState] = useState<Team[]>(teams);
+
+    // Load teams from localStorage when the page first loads
+  useEffect(() => {
+    const savedTeams = localStorage.getItem("teamsData");
+    if (savedTeams) {
+      setTeamsState(JSON.parse(savedTeams));
+    }
+  }, []);
+
+  // Save teams to localStorage whenever teamsState changes
+  useEffect(() => {
+    localStorage.setItem("teamsData", JSON.stringify(teamsState));
+  }, [teamsState]);
+
 
   const [developmentTeam, setDevelopmentTeam] = useState<string>("Development Team");
 
@@ -72,7 +86,7 @@ export default function TeamsPage() {
 
   const handleSaveTeamName = () => {
     if (editingTeam) {
-      setTeams((prev) =>
+      setTeamsState((prev) =>
         prev.map((t) =>
           t.name === editingTeam ? { ...t, name: teamNameValue } : t
         )
@@ -92,7 +106,7 @@ export default function TeamsPage() {
 
   const handleSaveMember = () => {
     if (editingMember) {
-      setTeams((prev) =>
+      setTeamsState((prev) =>
         prev.map((t) =>
           t.name === editingMember.team
             ? {
@@ -115,7 +129,7 @@ export default function TeamsPage() {
   };
 
   const handleSaveTeam = (oldName: string) => {
-    setTeams((prev) =>
+    setTeamsState((prev) =>
       prev.map((t) =>
         t.name === oldName ? { ...t, name: teamNameValue } : t
       )
@@ -125,7 +139,7 @@ export default function TeamsPage() {
 
   const updateTeam = async (id: string, name: string) => {
   // Optimistically update UI first
-  setTeams((prev) =>
+  setTeamsState((prev) =>
     prev.map((t) => (t.name === id ? { ...t, name } : t))
   );
 
@@ -140,13 +154,13 @@ export default function TeamsPage() {
     console.error("Failed to update team");
     // rollback if API fails
     const originalTeams = await fetch("/api/teams").then((r) => r.json());
-    setTeams(originalTeams);
+    setTeamsState(originalTeams);
   }
 };
 
 const updateMember = async (id: string, name: string, role: string) => {
   // Optimistic UI update
-  setTeams((prev) =>
+  setTeamsState((prev) =>
     prev.map((team) => ({
       ...team,
       members: team.members.map((m) =>
@@ -165,7 +179,7 @@ const updateMember = async (id: string, name: string, role: string) => {
   if (!res.ok) {
     console.error("Failed to update member");
     const originalTeams = await fetch("/api/teams").then((r) => r.json());
-    setTeams(originalTeams);
+    setTeamsState(originalTeams);
   }
 };
 
@@ -177,7 +191,7 @@ const updateMember = async (id: string, name: string, role: string) => {
       </p>
 
       <div className={styles.grid}>
-        {teams.map((team) => (
+        {teamsState.map((team) => (
           <div key={team.name} className={styles.card}>
             <div className={styles.teamHeader}>
               {editingTeam === team.name ? (

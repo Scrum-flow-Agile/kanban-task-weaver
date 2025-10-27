@@ -139,16 +139,6 @@ const Workspaces = () => {
                       {completedTasks}/{totalTasks} tasks
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <span>Progress</span>
-                        <span className="font-semibold">{progressPercentage.toFixed(0)}%</span>
-                    </div>
-                    <Progress value={progressPercentage} className="h-2" />
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    Owner: {workspace.owner || 'Sarah Connor'} • 2 hours ago
-                  </div>
                 </div>
               </CardContent>
             </Card>
