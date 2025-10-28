@@ -42,8 +42,16 @@ export default function VerifyPage() {
     const verifyEmail = async () => {
       try {
         const { data } = await axios.get<VerifyResponse>(
-          `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/verify?token=${token}`
+          `${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/auth/verify?token=${token}`
         );
+
+      fetch('http://localhost:4000/api/auth/verify-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    })
 
         if (email && data.user) {
           setUser(data.user);
@@ -56,7 +64,7 @@ export default function VerifyPage() {
           error: ''
         });
 
-        setTimeout(() => navigate('/dashboard'), 3000);
+        setTimeout(() => navigate('/dashboard'), 4000);
       } catch (err) {
         const axiosError = err as AxiosError<{ message?: string }>;
         const errorMessage =
